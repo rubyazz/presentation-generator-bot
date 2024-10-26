@@ -38,6 +38,7 @@ async def main() -> None:
 
 def gamma_auth(username, password):
     url = "https://api.gamma.co.uk/auth/token"
+    # url = "https://api-test.gamma.co.uk/auth/token" # test server
     
     data = f"grant_type=password&username={username}&password={password}"
     
@@ -47,13 +48,16 @@ def gamma_auth(username, password):
     
     response = requests.post(url, headers=headers, data=data)
     
-    print(response.status_code)
-    print(response.json())
+    print("Status Code:", response.status_code)
+    try:
+        print("Response JSON:", response.json())
+    except requests.exceptions.JSONDecodeError:
+        print("Response Text:", response.text)
 
 
 
-us = "mrxabd690@gmail.com"
-password = "marvelcomics123456"
+us = "koket"
+password = "koket123Q%"
 
 gamma_auth(us, password)
 
