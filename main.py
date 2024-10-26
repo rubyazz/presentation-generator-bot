@@ -2,6 +2,7 @@ import asyncio
 import logging
 import sys
 from os import getenv
+import requests
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
@@ -34,6 +35,27 @@ async def main() -> None:
 
     await dp.start_polling(bot)
 
+
+def gamma_auth(username, password):
+    url = "https://api.gamma.co.uk/auth/token"
+    
+    data = f"grant_type=password&username={username}&password={password}"
+    
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+    
+    response = requests.post(url, headers=headers, data=data)
+    
+    print(response.status_code)
+    print(response.json())
+
+
+
+us = "mrxabd690@gmail.com"
+password = "marvelcomics123456"
+
+gamma_auth(us, password)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
